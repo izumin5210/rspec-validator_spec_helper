@@ -5,7 +5,7 @@ require 'rspec/validator_spec_helper/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rspec-validator_spec_helper"
-  spec.version       = Rspec::ValidatorSpecHelper::VERSION
+  spec.version       = RSpec::ValidatorSpecHelper::VERSION
   spec.authors       = ["izumin5210"]
   spec.email         = ["masayuki@izumin.info"]
   spec.summary       = %q{TODO: Write a short summary. Required.}

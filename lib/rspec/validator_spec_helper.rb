@@ -1,6 +1,6 @@
 require "rspec/validator_spec_helper/version"
 
-module Rspec
+module RSpec
   module ValidatorSpecHelper
     ATTRIBUTE_NAME = :value
 
