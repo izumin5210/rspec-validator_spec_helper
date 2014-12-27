@@ -6,11 +6,10 @@ require 'rspec/validator_spec_helper/version'
 Gem::Specification.new do |spec|
   spec.name          = "rspec-validator_spec_helper"
   spec.version       = RSpec::ValidatorSpecHelper::VERSION
-  spec.authors       = ["izumin5210"]
+  spec.authors       = ["Masayuki IZUMI"]
   spec.email         = ["masayuki@izumin.info"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = "Provide dummy class for validator spec"
+  spec.homepage      = "https://github.com/izumin5210/rspec-validator_spec_helper"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
