@@ -1,4 +1,7 @@
 require "rspec/validator_spec_helper/version"
+require 'active_model'
+require 'active_support'
+require 'active_support/core_ext'
 
 module RSpec
   module ValidatorSpecHelper
