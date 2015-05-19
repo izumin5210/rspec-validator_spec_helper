@@ -1,5 +1,7 @@
 # RSpec::ValidatorSpecHelper
 
+[![Build Status](https://travis-ci.org/izumin5210/rspec-validator_spec_helper.svg?branch=master)](https://travis-ci.org/izumin5210/rspec-validator_spec_helper)
+
 Provide dummy class for validator spec
 
 ## Installation
