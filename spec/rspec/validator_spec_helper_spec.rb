@@ -31,6 +31,16 @@ RSpec.describe RSpec::ValidatorSpecHelper do
     it { expect(value).to be_nil }
     it { is_expected.to be_a model_class }
     it { expect(subject.value).to eq value }
+
+    context 'when the validator has some options' do
+      let(:options) { { gochiusa: 'kokoro pyonpyon' } }
+      let(:validator) do
+        model_class.validators.find { |v| v.is_a? TestEachValidator }
+      end
+
+      it { expect(validator.options).to be_key(:gochiusa) }
+      it { expect(validator.options).to be_value(options[:gochiusa]) }
+    end
   end
 
   context 'when the spec is for a validator extended AM::Validator' do
@@ -76,6 +86,16 @@ RSpec.describe RSpec::ValidatorSpecHelper do
       it { expect(subject.value1).to eq value1 }
       it { expect(subject.value2).to eq value2 }
       it { expect(subject.value3).to eq value3 }
+    end
+
+    context 'when the validator has some options' do
+      let(:options) { { gochiusa: 'kokoro pyonpyon' } }
+      let(:validator) do
+        model_class.validators.find { |v| v.is_a? TestValidator }
+      end
+
+      it { expect(validator.options).to be_key(:gochiusa) }
+      it { expect(validator.options).to be_value(options[:gochiusa]) }
     end
   end
 end
