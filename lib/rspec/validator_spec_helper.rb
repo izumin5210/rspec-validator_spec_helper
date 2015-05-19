@@ -31,6 +31,8 @@ module RSpec
 
         let(ATTRIBUTE_NAME) { nil }
 
+        let(:options) { nil }
+
         let(:model_class) do
           example_group = self
           Struct.new(*attribute_names) do
@@ -41,9 +43,14 @@ module RSpec
             end
 
             if example_group.validator_type == ActiveModel::EachValidator
-              validates ATTRIBUTE_NAME, :"#{example_group.validation_name}" => true
+              args = { :"#{example_group.validation_name}" => (example_group.options || true) }
+              validates ATTRIBUTE_NAME, args
             else
-              validates_with example_group.validator_class
+              if example_group.options.nil?
+                validates_with example_group.validator_class
+              else
+                validates_with example_group.validator_class, example_group.options
+              end
             end
           end
         end
