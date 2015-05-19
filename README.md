@@ -43,6 +43,12 @@ describe EmailValidator, type: :validator do
       let(:value) { 'kokoro.pyonpyon@example.com' }
       it { is_expected.to be_valid }
     end
+
+    context 'with strict option' do
+      let(:options) { { strict: true } }
+      let(:value) { 'kokoro..pyonpyon@example.com' }
+      it { is_expected.to_not be_valid }
+    end
   end
 end
 ```
@@ -52,7 +58,7 @@ end
 
 ```ruby
 describe NotOverlappedValidator, type: :validator do
-  let(:attribute_names) { [:begin_at, :end] }
+  let(:attribute_names) { [:begin_at, :end_at] }
   let(:begin_at) { Time.parse("2014-12-24T12:00:00+09:00") }
 
   describe '#validate' do
@@ -63,6 +69,12 @@ describe NotOverlappedValidator, type: :validator do
 
     context 'when end_at is not overlapped' do
       let(:end_at) { Time.parse("2014-12-24T19:00:00+09:00") }
+      it { is_expected.to be_valid }
+    end
+
+    context 'with allow_same_time option' do
+      let(:options) { { allow_same_time: true } }
+      let(:end_at) { begin_at }
       it { is_expected.to be_valid }
     end
   end
