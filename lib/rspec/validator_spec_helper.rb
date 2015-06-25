@@ -10,7 +10,7 @@ module RSpec
     def self.included(base)
       base.instance_eval do
         let(:validator_name) do
-          current_example = RSpec.try(:current_example) || example
+          current_example = RSpec.try(:current_example) || RSpec.example
           current_example.full_description.match(/\A\w+Validator/)[0]
         end
 
