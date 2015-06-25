@@ -8,10 +8,15 @@ RSpec.describe RSpec::ValidatorSpecHelper do
     end
 
     before do
-      allow(RSpec).to(
-        receive_message_chain(:current_example, :full_description)
-            .and_return('TestEachValidator')
-      )
+      if RSpec.respond_to?(:current_example)
+        allow(RSpec).to(
+          receive_message_chain(:current_example, :full_description)
+              .and_return('TestEachValidator')
+        )
+      else
+        RSpec.stub_chain(:example, :full_description)
+          .and_return('TestEachValidator')
+      end
     end
 
     it { expect(validator_class).to eq TestEachValidator }
@@ -29,7 +34,7 @@ RSpec.describe RSpec::ValidatorSpecHelper do
     end
 
     it { expect(value).to be_nil }
-    it { is_expected.to be_a model_class }
+    it { expect(subject).to be_a model_class }
     it { expect(subject.value).to eq value }
 
     context 'when the validator has some options' do
@@ -50,10 +55,15 @@ RSpec.describe RSpec::ValidatorSpecHelper do
     end
 
     before do
-      allow(RSpec).to(
-        receive_message_chain(:current_example, :full_description)
-            .and_return('TestValidator')
-      )
+      if RSpec.respond_to?(:current_example)
+        allow(RSpec).to(
+          receive_message_chain(:current_example, :full_description)
+              .and_return('TestValidator')
+        )
+      else
+        RSpec.stub_chain(:example, :full_description)
+          .and_return('TestValidator')
+      end
     end
 
     it { expect(validator_class).to eq TestValidator }
@@ -72,7 +82,7 @@ RSpec.describe RSpec::ValidatorSpecHelper do
 
     context 'when attribute_names has not set' do
       it { expect(value).to be_nil }
-      it { is_expected.to be_a model_class }
+      it { expect(subject).to be_a model_class }
       it { expect(subject.value).to eq value }
     end
 
@@ -82,7 +92,7 @@ RSpec.describe RSpec::ValidatorSpecHelper do
       let(:value2) { 'Chino' }
       let(:value3) { 'Rize' }
 
-      it { is_expected.to be_a model_class }
+      it { expect(subject).to be_a model_class }
       it { expect(subject.value1).to eq value1 }
       it { expect(subject.value2).to eq value2 }
       it { expect(subject.value3).to eq value3 }
