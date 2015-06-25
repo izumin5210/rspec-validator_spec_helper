@@ -9,8 +9,9 @@ module RSpec
 
     def self.included(base)
       base.instance_eval do
-        let(:validator_name) do |example|
-          example.full_description.match(/\A\w+Validator/)[0]
+        let(:validator_name) do
+          current_example = RSpec.try(:current_example) || example
+          current_example.full_description.match(/\A\w+Validator/)[0]
         end
 
         let(:validator_class) { Object.const_get(validator_name) }
