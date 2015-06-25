@@ -55,10 +55,15 @@ RSpec.describe RSpec::ValidatorSpecHelper do
     end
 
     before do
-      allow(RSpec).to(
-        receive_message_chain(:current_example, :full_description)
-            .and_return('TestValidator')
-      )
+      if RSpec.respond_to?(:current_example)
+        allow(RSpec).to(
+          receive_message_chain(:current_example, :full_description)
+              .and_return('TestValidator')
+        )
+      else
+        RSpec.stub_chain(:example, :full_description)
+          .and_return('TestValidator')
+      end
     end
 
     it { expect(validator_class).to eq TestValidator }
