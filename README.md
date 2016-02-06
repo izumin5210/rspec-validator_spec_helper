@@ -39,7 +39,7 @@ describe EmailValidator, type: :validator do
       it { is_expected.to_not be_valid }
     end
 
-    context 'with valid foramt address' do
+    context 'with valid format address' do
       let(:value) { 'kokoro.pyonpyon@example.com' }
       it { is_expected.to be_valid }
     end
