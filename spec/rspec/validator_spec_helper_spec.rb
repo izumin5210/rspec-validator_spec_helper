@@ -108,4 +108,28 @@ RSpec.describe RSpec::ValidatorSpecHelper do
       it { expect(validator.options).to be_value(options[:gochiusa]) }
     end
   end
+
+  context 'when nested Validator' do
+    include RSpec::ValidatorSpecHelper
+    before(:all) do
+      TestNested = Class.new
+      TestNested.const_set :TestEachValidator, Class.new(ActiveModel::EachValidator)
+    end
+
+    before do
+      if RSpec.respond_to?(:current_example)
+        allow(RSpec).to(
+          receive_message_chain(:current_example, :full_description)
+              .and_return('TestNested::TestEachValidator')
+        )
+      else
+        RSpec.stub_chain(:example, :full_description)
+          .and_return('TestNested::TestEachValidator')
+      end
+    end
+
+    it { expect(validator_class).to eq TestNested::TestEachValidator }
+    it { expect(validator_name).to eq 'TestNested::TestEachValidator' }
+    it { expect(validation_name).to eq 'test_nested/test_each' }
+  end
 end

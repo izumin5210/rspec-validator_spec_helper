@@ -11,7 +11,7 @@ module RSpec
       base.instance_eval do
         let(:validator_name) do
           current_example = RSpec.try(:current_example) || RSpec.example
-          current_example.full_description.match(/\A\w+Validator/)[0]
+          current_example.full_description.match(/\A[\w:]+Validator/)[0]
         end
 
         let(:validator_class) { Object.const_get(validator_name) }
